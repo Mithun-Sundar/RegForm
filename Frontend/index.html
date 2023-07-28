@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        form {
+            margin: 5%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 2px solid black;
+            padding: 5px;
+            border-radius: 15px;
+        }
+        
+        label {
+            font-size: 20px;
+            padding: 5px;
+            margin-left: 10px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            font-size: 20px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        
+        a {
+            font-size: 20px;
+            margin-top: 15px;
+            text-decoration: none;
+        }
+        
+        .view {
+            background-color: lightblue;
+        }
+        
+        .submit {
+            background-color: lightgreen;
+        }
+    </style>
+    <title>Student Registration Form</title>
+</head>
+
+<body>
+    <form>
+        <h1>Student Registration Form</h1>
+        <label for="stdid">RegNo:
+            <input type="text" name="stdid" placeholder="RegNumber" required>
+        </label>
+        <label for="Name">Name:
+            <input type="text" name="name" placeholder="Name" required>
+        </label>
+        <label for="dob">DOB:
+                <input type="date" name="dob" required>
+            </label>
+        <label for="email">Email:
+            <input type="email" name="email" id="email" placeholder="Email" required>
+        </label>
+        <button type="submit" class="submit">Submit</button>
+        <button class="view"><a href="../Frontend/data.html">View</a></button>
+    </form>
+</body>
+<script>
+    const post = async(data) => {
+        const res = await fetch('http://localhost:3000', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        const postResp = await res.json();
+        console.log(postResp);
+    }
+
+    // function validateEmail() {
+    //     var userEmail = document.getElementById('email');
+    //     var regex = new RegExp(/\S+@\S+\.\S+/);
+    //     var result = regex.test(userEmail);
+    //     if (result) {
+    //         window.alert("Valid Eamil");
+    //         return true;
+    //     } else {
+    //         window.alert("Invalid Email!");
+    //         return false;
+    //     }
+    // }
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formdata = new FormData(form);
+        const data = Object.fromEntries(formdata);
+        // if (validateEmail()) {
+        //     post(data);
+        // }
+        post(data);
+    });
+</script>
+
+</html>

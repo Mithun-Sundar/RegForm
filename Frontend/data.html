@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        a {
+            text-decoration: none;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        td {
+            text-align: center;
+            padding-left: 2px;
+            padding-right: 2px;
+            margin-left: 2px;
+        }
+        
+        button {
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+    </style>
+    <title>Student Details</title>
+</head>
+
+<body>
+    <table border="2">
+
+    </table>
+    <button><a href="../Frontend/index.html">Back</a></button>
+</body>
+<script>
+    const get = async() => {
+        const data = await fetch('http://localhost:3000');
+        const d = await data.json();
+        content = `
+        <tr>
+            <th>RegNo</th>
+            <th>Name</th>
+            <th>DOB</th>
+            <th>Email</th>
+        </tr>`
+        d.forEach(e => {
+            content += `
+            <tr>
+                <td>${e.stdid}</td>
+                <td>${e.name}</td>
+                <td>${e.dob}</td>
+                <td>${e.email}</td>
+            </tr>`
+        });
+
+        const t = document.querySelector('table');
+        t.innerHTML = content;
+    }
+    get();
+</script>
+
+</html>
